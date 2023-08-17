@@ -1,13 +1,15 @@
 name: IO actions
+
 'on':
   pull_request:
+
 jobs:
   io-app-test:
     name: IO app test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 12.x
         env:
@@ -24,12 +26,13 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Run test on every builder directory
         uses: vtex/action-io-app-test@master
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 12.x
         env:

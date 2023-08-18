@@ -3,9 +3,12 @@
   "compilerOptions": {
     "noEmitOnError": false,
     "lib": ["dom"],
+    "skipLibCheck": true,
+
     "module": "esnext",
     "moduleResolution": "node",
     "target": "es2019"
   },
-  "include": ["./typings/*.d.ts", "./**/*.tsx", "./**/*.ts"]
+  "include": ["./typings/*.d.ts", "./**/*.tsx", "./**/*.ts"],
+  "exclude": ["node_modules"]
 }

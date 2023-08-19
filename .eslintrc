@@ -23,6 +23,7 @@
     "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
     "no-undef": "off",
+    "no-use-before-define": "off",
 
     "import/order": [
       "error",

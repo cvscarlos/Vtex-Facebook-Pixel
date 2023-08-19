@@ -5676,9 +5676,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vtex-node-app@workspace:.":
+"vtex-facebook-pixel@workspace:.":
   version: 0.0.0-use.local
-  resolution: "vtex-node-app@workspace:."
+  resolution: "vtex-facebook-pixel@workspace:."
   dependencies:
     "@types/node": ^16.18.41
     "@typescript-eslint/eslint-plugin": ^6.4.0

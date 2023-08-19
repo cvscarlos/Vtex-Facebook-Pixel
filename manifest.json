@@ -1,19 +1,21 @@
 {
-  "name": "vtex-node-app",
-  "vendor": "vtex",
+  "name": "cvs-facebook-pixel",
+  "vendor": "maeztraio",
   "version": "0.0.1",
-  "title": "VTEX Node App",
-  "description": "An experimental VTEX IO app",
-  "categories": [],
-  "dependencies": {},
-  "builders": {
-    "node": "6.x",
-    "docs": "0.x"
-  },
-  "scripts": {
-    "prereleasy": "bash lint.sh"
-  },
+  "title": "Facebook Pixel (cvs)",
+  "description": "Implementation of Facebook Pixel and Conversion",
   "credentialType": "absolute",
+  "categories": [],
+  "dependencies": {
+    "vtex.pixel-interfaces": "1.x"
+  },
+  "builders": {
+    "docs": "0.x",
+    "node": "6.x",
+    "pixel": "0.x",
+    "react": "3.x",
+    "store": "0.x"
+  },
   "policies": [
     {
       "name": "outbound-access",
@@ -29,5 +31,16 @@
       "name": "colossus-write-logs"
     }
   ],
+  "settingsSchema": {
+    "title": "---",
+    "type": "object",
+    "properties": {
+      "pixelId": {
+        "title": "Facebook Pixel ID",
+        "description": "Enter your facebook app ID",
+        "type": "string"
+      }
+    }
+  },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

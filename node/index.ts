@@ -5,7 +5,7 @@ import { Clients } from './clients';
 import { status } from './middlewares/status';
 import { validate } from './middlewares/validate';
 
-const TIMEOUT_MS = 800;
+const TIMEOUT_MS = 2000;
 
 // Create a LRU memory cache for the Status client.
 // The 'max' parameter sets the size of the cache.
@@ -14,7 +14,6 @@ const TIMEOUT_MS = 800;
 // or a 'cache-control' header with a 'max-age' value. If neither exist, the response will not be cached.
 // To force responses to be cached, consider adding the `forceMaxAge` option to your client methods.
 const memoryCache = new LRUCache<string, any>({ max: 5000 });
-
 metrics.trackCache('status', memoryCache);
 
 // This is the configuration for clients available in `ctx.clients`.
@@ -24,13 +23,11 @@ const clients: ClientsConfig<Clients> = {
   options: {
     // All IO Clients will be initialized with these options, unless otherwise specified.
     default: {
-      retries: 2,
+      retries: 3,
       timeout: TIMEOUT_MS,
     },
     // This key will be merged with the default options and add this cache to our Status client.
-    status: {
-      memoryCache,
-    },
+    status: { memoryCache },
   },
 };
 

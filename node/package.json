@@ -1,11 +1,12 @@
 {
-  "dependencies": {},
+  "dependencies": {
+    "@vtex/api": "6.45.19"
+  },
   "devDependencies": {
     "@types/jest": "^29.5.3",
     "@types/node": "^12.0.0",
     "@vtex/test-tools": "^3.4.3",
-    "@vtex/tsconfig": "^0.6.0",
-    "@vtex/api": "6.45.19"
+    "@vtex/tsconfig": "^0.6.0"
   },
   "resolutions": {
     "@types/express-serve-static-core": "4.16.*"

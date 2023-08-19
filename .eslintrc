@@ -1,7 +1,40 @@
 {
-  "extends": "vtex",
-  "root": true,
   "env": {
-    "node": true
+    "node": true,
+    "jest": true
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "unicorn",
+    "prettier"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:unicorn/recommended",
+    "airbnb-base",
+    "plugin:prettier/recommended",
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "import/prefer-default-export": "off",
+    "no-undef": "off",
+
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling", "index"]
+        ]
+      }
+    ]
   }
 }

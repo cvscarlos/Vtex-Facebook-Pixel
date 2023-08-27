@@ -3,16 +3,16 @@
   "license": "MIT",
   "version": "1.0.0",
   "scripts": {
-    "lint": "eslint --ext js,jsx,ts,tsx .",
+    "lint": "eslint --ext js,cjs,ts .",
     "lint:staged": "lint-staged",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\"",
-    "prepare": "husky install"
+    "format": "prettier --write \"**/*.{ts,js,cjs,json}\"",
+    "prepare": "husky install",
+    "test": "jest"
   },
   "devDependencies": {
     "@types/node": "^16.18.41",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "@typescript-eslint/parser": "^6.4.0",
-    "@vtex/danger": "^0.2.9",
     "eslint": "^8.47.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.0.0",
@@ -23,5 +23,8 @@
     "lint-staged": "^12.5.0",
     "prettier": "^3.0.2",
     "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "jest": "^29.6.4"
   }
 }

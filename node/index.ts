@@ -1,9 +1,13 @@
-import type { ClientsConfig, RecorderState, ServiceContext } from '@vtex/api';
+import type {
+  ClientsConfig,
+  EventContext,
+  RecorderState,
+  ServiceContext,
+} from '@vtex/api';
 import { LRUCache, method, Service } from '@vtex/api';
 
 import { Clients } from './clients';
-import { status } from './middlewares/status';
-import { validate } from './middlewares/validate';
+import { reportOrderPlaced } from './middlewares/pixel-conversion';
 
 const TIMEOUT_MS = 2000;
 
@@ -39,15 +43,26 @@ declare global {
 
   // We declare a global Context type just to avoid re-writing ServiceContext<Clients, State> in every handler and resolver
   type Context = ServiceContext<Clients, State>; // eslint-disable-line no-unused-vars
+
+  // eslint-disable-next-line no-unused-vars
+  interface StatusChangeContext extends EventContext<Clients> {
+    body: {
+      domain: string;
+      orderId: string;
+      currentState: string;
+      lastState: string;
+      currentChangeDate: string;
+      lastChangeDate: string;
+    };
+  }
 }
 
 // Export a service that defines route handlers and client options.
 export default new Service({
   clients,
   routes: {
-    // `status` is the route ID from service.json. It maps to an array of middlewares (or a single handler).
-    status: method({
-      GET: [validate, status],
+    cvsOrderPlaced: method({
+      POST: [reportOrderPlaced],
     }),
   },
 });

@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
-    "types": ["node"],
-    "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
     "lib": ["es2017", "dom"],
     "module": "esnext",
     "moduleResolution": "node",
-    "sourceMap": true,
-    "target": "es2017",
     "skipLibCheck": true,
-    "strict": true
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2017",
+    "types": ["node"]
   },
   "typeAcquisition": {
     "enable": false

@@ -1,7 +1,7 @@
 {
   "name": "cvs-facebook-pixel",
   "vendor": "maeztraio",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "title": "Facebook Pixel (cvs)",
   "description": "Implementation of Facebook Pixel and Conversion",
   "credentialType": "absolute",
@@ -20,7 +20,7 @@
     {
       "name": "outbound-access",
       "attrs": {
-        "host": "httpstat.us",
+        "host": "graph.facebook.com",
         "path": "*"
       }
     },
@@ -37,7 +37,12 @@
     "properties": {
       "pixelId": {
         "title": "Facebook Pixel ID",
-        "description": "Enter your facebook app ID",
+        "description": "Enter your FB Pixel ID (eg. 1010060557505050)",
+        "type": "string"
+      },
+      "conversionApiAccessToken": {
+        "title": "Facebook Conversion API Access Token",
+        "description": "Enter your FB Conversion API Access Token (eg. EAAZAPdwk...)",
         "type": "string"
       }
     }

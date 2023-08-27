@@ -1,12 +1,41 @@
 <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.head.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', "{{settings.pixelId}}", {}, { "agent": "plvtex" });
+  (function (browserWindow, browserDocument, htmlTagName, scriptUrl) {
+    if (browserWindow.fbq) return;
+
+    var eventReceiver = function () {
+      eventReceiver.callMethod
+        ? eventReceiver.callMethod.apply(eventReceiver, arguments)
+        : eventReceiver.queue.push(arguments)
+    };
+
+    browserWindow.fbq = eventReceiver;
+
+    if (!browserWindow._fbq)
+      browserWindow._fbq = eventReceiver;
+
+    eventReceiver.push = eventReceiver;
+    eventReceiver.loaded = true;
+    eventReceiver.version = '2.0';
+    eventReceiver.queue = [];
+
+    var scriptExists = false
+    for (var i = 0; i < browserDocument.scripts.length; i++) {
+      if (browserDocument.scripts[i].src === scriptUrl)
+        scriptExists = true
+    }
+    if (scriptExists) return;
+
+    var htmlElement = browserDocument.createElement(htmlTagName);
+    htmlElement.async = true;
+    htmlElement.src = scriptUrl;
+    htmlElement.onload = function () {
+      console.info('📘 Facebook Pixel loaded');
+    };
+
+    var tagScript = browserDocument.getElementsByTagName(htmlTagName)[0];
+    tagScript.parentNode.insertBefore(htmlElement, tagScript)
+  })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+
+  fbq('init', '{{settings.pixelId}}');
   fbq('track', 'PageView');
 </script>

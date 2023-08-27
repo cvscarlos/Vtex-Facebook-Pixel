@@ -1,14 +1,5 @@
 export interface PixelMessage extends MessageEvent {
-  data:
-    | ProductViewData
-    | ProductClickData
-    | OrderPlacedData
-    | PageViewData
-    | ProductImpressionData
-    | AddToCartData
-    | RemoveToCartData
-    | CategoryViewData
-    | DepartmentViewData;
+  data: ProductViewData | AddToCartData | OrderPlacedData;
 }
 
 export interface EventData {
@@ -17,41 +8,15 @@ export interface EventData {
   currency: string;
 }
 
-export interface PageViewData extends EventData {
-  event: 'pageView';
-  eventName: 'vtex:pageView';
-  pageTitle: string;
-  pageUrl: string;
-  referrer: string;
-}
-
-export interface CategoryViewData extends EventData {
-  event: 'categoryView';
-  eventName: 'vtex:categoryView';
-  products: Product[];
-}
-
-export interface DepartmentViewData extends EventData {
-  event: 'departmentView';
-  eventName: 'vtex:departmentView';
-  products: Product[];
-}
-
 export interface AddToCartData extends EventData {
   event: 'addToCart';
   eventName: 'vtex:addToCart';
   items: AddToCartProduct[];
 }
 
-export interface RemoveToCartData extends EventData {
-  event: 'removeFromCart';
-  eventName: 'vtex:removeFromCart';
-  items: any[];
-}
-
 export interface OrderPlacedData extends Order, EventData {
   event: 'orderPlaced';
-  eventName: 'vtex:orderPlaced';
+  eventName: 'vtex:orderPlacedTracked' | 'vtex:orderPlaced';
 }
 
 export interface ProductViewData extends EventData {
@@ -60,21 +25,7 @@ export interface ProductViewData extends EventData {
   product: Product;
 }
 
-export interface ProductClickData extends EventData {
-  event: 'productClick';
-  eventName: 'vtex:productClick';
-  product: Product;
-}
-
-export interface ProductImpressionData extends EventData {
-  event: 'productImpression';
-  eventName: 'vtex:productImpression';
-  product: Product;
-  position: number;
-  list: string;
-}
-
-export interface Order {
+interface Order {
   currency: string;
   accountName: string;
   orderGroup: string;
@@ -82,6 +33,7 @@ export interface Order {
   coupon: string;
   visitorType: string;
   visitorContactInfo: string[];
+  visitorContactPhone: string;
   transactionId: string;
   transactionDate: string;
   transactionAffiliation: string;
@@ -133,34 +85,28 @@ interface ProductOrder {
   unitMultiplier: number;
 }
 
-export interface Product {
+interface Product {
   brand: string;
-  categoryId?: string; // inconsistency
+  categoryId?: string;
   categories: string[];
   productId: string;
   productName: string;
-  selectedSku?: string; // inconsistency
-  items: Item[];
-  sku: Item;
+  selectedSku?: string;
+  items: Sku[];
   [key: string]: any;
 }
 
-interface Item {
+interface Sku {
   itemId: string;
   name: string;
-  seller?: Seller;
-  [key: string]: any;
-}
-
-interface Seller {
-  commertialOffer: CommertialOffer;
-  AvailableQuantity: number;
-  [key: string]: any;
-}
-
-interface CommertialOffer {
-  Price: number;
-  [key: string]: any;
+  sellers?: {
+    commertialOffer: {
+      Price: number;
+      [key: string]: any;
+    };
+    AvailableQuantity: number;
+    [key: string]: any;
+  };
 }
 
 interface AddToCartProduct {

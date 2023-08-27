@@ -1,78 +1,82 @@
-import { canUseDOM } from 'vtex.render-runtime';
+import {
+  PixelMessage,
+  ProductViewData,
+  OrderPlacedData,
+  AddToCartData,
+} from '../types/events.type';
 
-import { ProductOrder, PixelMessage, Product } from './typings/events';
+function productView(data: ProductViewData) {
+  const {
+    product,
+    currency,
+    product: { productName, items, categories },
+  } = data;
 
-function handleMessages(event: PixelMessage) {
-  switch (event.data.eventName) {
-    case 'vtex:pageView': {
-      fbq('track', 'PageView');
-      break;
-    }
-    case 'vtex:orderPlaced': {
-      const { currency, transactionTotal, transactionProducts } = event.data;
-
-      fbq('track', 'Purchase', {
-        value: transactionTotal,
-        currency,
-        content_type: 'product',
-        contents: transactionProducts.map((product: ProductOrder) => ({
-          id: product.sku,
-          quantity: product.quantity,
-          item_price: product.sellingPrice,
-        })),
-      });
-      break;
-    }
-    case 'vtex:productView': {
-      const {
-        product: { productName, items },
-        product,
-        currency,
-      } = event.data;
-
-      fbq('track', 'ViewContent', {
-        content_ids: items.map(({ itemId }) => itemId),
-        content_name: productName,
-        content_type: 'product',
-        currency,
-        value: getProductPrice(product),
-      });
-      break;
-    }
-    case 'vtex:addToCart': {
-      const { items, currency } = event.data;
-
-      fbq('track', 'AddToCart', {
-        value:
-          items.reduce((accumulator, item) => accumulator + item.price, 0) /
-          100,
-        content_ids: items.map((sku) => sku.skuId),
-        contents: items.map((sku) => ({
-          id: sku.skuId,
-          quantity: sku.quantity,
-          item_price: sku.price / 100,
-        })),
-        content_type: 'product',
-        currency,
-      });
-      break;
-    }
-    default: {
-      break;
-    }
-  }
+  fbq('track', 'ViewContent', {
+    content_ids: items.map(({ itemId }) => itemId),
+    content_name: productName,
+    content_type: 'product',
+    currency,
+    content_category: categories.map((c) => c.replace(/\//g, '')).join('/'),
+    value: product.items[0]?.sellers?.[0].commertialOffer.Price,
+  });
 }
 
-function getProductPrice(product: Product) {
-  let price;
+function addToCart(data: AddToCartData) {
+  const { items, currency } = data;
+
+  fbq('track', 'AddToCart', {
+    value:
+      items.reduce((accumulator, item) => accumulator + item.price, 0) / 100,
+    content_ids: items.map((sku) => sku.skuId),
+    contents: items.map((sku) => ({
+      id: sku.skuId,
+      quantity: sku.quantity,
+      item_price: sku.price / 100,
+    })),
+    content_type: 'product',
+    currency,
+  });
+}
+
+async function orderPlaced(data: OrderPlacedData) {
+  const payload = {
+    eventData: data,
+    userAgent: navigator.userAgent,
+    pageUrl: window.location.href,
+  };
+  await fetch('/_cvs-rep/order-placed', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
+async function handleMessages(event: PixelMessage) {
   try {
-    price = product.items[0].sellers[0].commertialOffer.Price;
-  } catch {
-    price = undefined;
+    switch (event.data.eventName) {
+      case 'vtex:productView': {
+        productView(event.data);
+        break;
+      }
+      case 'vtex:addToCart': {
+        addToCart(event.data);
+        break;
+      }
+      case 'vtex:orderPlaced':
+      case 'vtex:orderPlacedTracked': {
+        await orderPlaced(event.data);
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  } catch (error) {
+    console.error('cvs-facebook-pixel', error);
   }
-  return price;
 }
 
-if (canUseDOM) {
-  window.addEventListener('message', handleMessages);
-}
+window.addEventListener('message', handleMessages);

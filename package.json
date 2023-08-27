@@ -1,7 +1,7 @@
 {
   "name": "vtex-facebook-pixel",
   "license": "MIT",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scripts": {
     "lint": "eslint --ext js,jsx,ts,tsx .",
     "lint:staged": "lint-staged",

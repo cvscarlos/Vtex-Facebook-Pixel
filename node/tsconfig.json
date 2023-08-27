@@ -4,11 +4,12 @@
     "noEmitOnError": false,
     "lib": ["dom"],
     "skipLibCheck": true,
+    "resolveJsonModule": true,
 
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "es2019"
   },
-  "include": ["./typings/*.d.ts", "./**/*.tsx", "./**/*.ts"],
+  "include": ["./**/*.ts"],
   "exclude": ["node_modules"]
 }

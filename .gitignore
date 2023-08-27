@@ -1,5 +1,6 @@
 .DS_Store
 .pnp.*
+*.log
 
 .vscode/
 .yarn/

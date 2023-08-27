@@ -5,8 +5,7 @@
   },
   "devDependencies": {
     "@types/co-body": "^6.1.0",
-    "@types/node": "^12.0.0",
-    "@vtex/tsconfig": "^0.6.0"
+    "@types/node": "^12.0.0"
   },
   "resolutions": {
     "@types/express-serve-static-core": "4.16.*"

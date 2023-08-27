@@ -5,6 +5,7 @@
     "lib": ["dom"],
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    "esModuleInterop": true,
 
     "module": "commonjs",
     "moduleResolution": "node",

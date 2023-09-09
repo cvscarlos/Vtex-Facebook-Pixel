@@ -4,8 +4,8 @@ import { ExternalClient } from '@vtex/api';
 import { getAppId } from '../utils/get-app-id';
 
 export default class FacebookGraph extends ExternalClient {
-  constructor(context: IOContext, options?: InstanceOptions) {
-    super('https://graph.facebook.com', context, options);
+  constructor(ioContext: IOContext, options?: InstanceOptions) {
+    super('https://graph.facebook.com', ioContext, options);
   }
 
   public async getEvent(

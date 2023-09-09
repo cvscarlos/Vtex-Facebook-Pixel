@@ -1,14 +1,11 @@
 {
   "dependencies": {
-    "@vtex/api": "6.45.19",
+    "@vtex/api": "6.45.20",
     "co-body": "^6.1.0"
   },
   "devDependencies": {
     "@types/co-body": "^6.1.0",
-    "@types/jest": "^29.5.3",
-    "@types/node": "^12.0.0",
-    "@vtex/test-tools": "^3.4.3",
-    "@vtex/tsconfig": "^0.6.0"
+    "@types/node": "^12.0.0"
   },
   "resolutions": {
     "@types/express-serve-static-core": "4.16.*"

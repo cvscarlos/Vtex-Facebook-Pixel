@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@vtex/api": "6.45.19",
+    "@vtex/api": "6.45.20",
     "co-body": "^6.1.0"
   },
   "devDependencies": {

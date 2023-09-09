@@ -2,7 +2,7 @@ import { createHash } from 'crypto';
 
 import { json } from 'co-body';
 
-import { OrderPlacedData } from '../../types/events.type';
+import { OrderPlacedData } from '../typings/events.type';
 
 type Payload = {
   userAgent: string;

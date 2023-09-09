@@ -1,7 +1,3 @@
-export interface PixelMessage extends MessageEvent {
-  data: ProductViewData | AddToCartData | OrderPlacedData;
-}
-
 export interface EventData {
   event: string;
   eventName: string;

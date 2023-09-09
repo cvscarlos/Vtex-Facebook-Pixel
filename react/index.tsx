@@ -3,7 +3,7 @@ import {
   ProductViewData,
   OrderPlacedData,
   AddToCartData,
-} from '../types/events.type';
+} from './typings/events.type';
 
 function productView(data: ProductViewData) {
   const {

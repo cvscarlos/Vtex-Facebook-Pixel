@@ -16,17 +16,8 @@ jobs:
         env:
           RUNNER_TEMP: /tmp
       
-      - name: Get yarn cache directory path
-        id: yarn-dir-path
-        shell: bash
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      
-      - uses: actions/cache@v3
-        with:
-          path: '${{ steps.yarn-dir-path.outputs.dir }}'
-          key: "${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}"
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+      - name: Install dependencies
+        run: yarn
       
       - name: Run test on every builder directory
         uses: vtex/action-io-app-test@master
@@ -43,17 +34,8 @@ jobs:
         env:
           RUNNER_TEMP: /tmp
       
-      - name: Get yarn cache directory path
-        id: yarn-dir-path
-        shell: bash
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      
-      - uses: actions/cache@v3
-        with:
-          path: '${{ steps.yarn-dir-path.outputs.dir }}'
-          key: "${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}"
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+      - name: Install dependencies
+        run: yarn
       
       - name: Lint project
         uses: vtex/action-lint@master

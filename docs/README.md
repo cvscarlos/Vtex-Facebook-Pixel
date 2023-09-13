@@ -17,7 +17,10 @@ More details about the events can be found in the [Facebook Pixel Documentation]
     ```sh
     vtex install maeztraio.cvs-facebook-pixel@1.x
     ```
-    Or access the URL: https://{{accountName}}.myvtex.com/admin/apps/maeztraio.cvs-facebook-pixel/install
+    Or access the URL:
+    ```plain
+    https://{{accountName}}.myvtex.com/admin/apps/maeztraio.cvs-facebook-pixel/install
+    ```
 2. Access the setup URL:
     ```plain
     https://{{accountName}}.myvtex.com/admin/apps/maeztraio.cvs-facebook-pixel/setup
@@ -34,8 +37,9 @@ Remember you must update your store's privacy policy to include the fact that yo
 
 ## Development
 - The Vtex environment requires Node v12, but this app also works fine in Node v14;
-- Use Yarn Classic (v1) to install dependencies by running `npx yarn`;
+- Use Yarn Classic (v1) to install dependencies by running `npx yarn@1 install`;
 - To start the development server, run `vtex link`.
+
 
 ## Special Thanks
 I would like to thank [Maeztra](https://maeztra.com/) for providing me with a test environment to develop this app.

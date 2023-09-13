@@ -13,19 +13,20 @@ More details about the events can be found in the [Facebook Pixel Documentation]
 
 
 ## Instalation
-1. Download this repository and install it via [Vtex CLI](https://developers.vtex.com/docs/guides/vtex-io-documentation-vtex-io-cli-install):
-    ```sh
-    vtex install maeztraio.cvs-facebook-pixel@1.x
-    ```
-    Or access the URL:
-    ```plain
-    https://{{accountName}}.myvtex.com/admin/apps/maeztraio.cvs-facebook-pixel/install
-    ```
-2. Access the setup URL:
+1. Download this repository and install it:
+    - via [Vtex CLI](https://developers.vtex.com/docs/guides/vtex-io-documentation-vtex-io-cli-install):
+        ```sh
+        vtex install maeztraio.cvs-facebook-pixel@1.x
+        ```
+    - Or access the URL:
+        ```plain
+        https://{{accountName}}.myvtex.com/admin/apps/maeztraio.cvs-facebook-pixel/install
+        ```
+3. Access the setup URL:
     ```plain
     https://{{accountName}}.myvtex.com/admin/apps/maeztraio.cvs-facebook-pixel/setup
     ```
-3. Fill the form with your:
+4. Fill the form with your:
     - Facebook Pixel ID;
     - Facebook Campaign Access Token ([details on documentation](https://developers.facebook.com/docs/marketing-api/conversions-api/get-started/?locale=en_US#access-token), scroll to *"Business Manager > Step 3"*);
     - Press the "Save" button.

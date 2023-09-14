@@ -3,6 +3,7 @@ import {
   ProductViewData,
   OrderPlacedData,
   AddToCartData,
+  CategoryViewData,
 } from './typings/events.type';
 
 function productView(data: ProductViewData) {
@@ -39,6 +40,16 @@ function addToCart(data: AddToCartData) {
   });
 }
 
+function viewCategory(data: CategoryViewData) {
+  const { currency, products } = data;
+
+  fbq('track', 'ViewContent', {
+    content_type: 'product_group',
+    content_ids: products.flatMap((p) => p.items.map((i) => i.itemId)),
+    currency,
+  });
+}
+
 async function orderPlaced(data: OrderPlacedData) {
   const payload = {
     eventData: data,
@@ -65,6 +76,10 @@ async function handleMessages(event: PixelMessage) {
         addToCart(event.data);
         break;
       }
+      case 'vtex:categoryView': {
+        viewCategory(event.data);
+        break;
+      }
       case 'vtex:orderPlaced':
       case 'vtex:orderPlacedTracked': {
         await orderPlaced(event.data);
@@ -79,4 +94,5 @@ async function handleMessages(event: PixelMessage) {
   }
 }
 
+// FB Helper: https://developers.facebook.com/docs/marketing-api/conversions-api/payload-helper
 window.addEventListener('message', handleMessages);

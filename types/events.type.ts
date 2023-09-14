@@ -21,6 +21,12 @@ export interface ProductViewData extends EventData {
   product: Product;
 }
 
+export interface CategoryViewData extends EventData {
+  event: 'categoryView';
+  eventName: 'vtex:categoryView';
+  products: Product[];
+}
+
 interface Order {
   currency: string;
   accountName: string;
@@ -40,9 +46,7 @@ interface Order {
   transactionPaymentType: PaymentType[];
   transactionShippingMethod: ShippingMethod[];
   transactionProducts: ProductOrder[];
-  transactionPayment: {
-    id: string;
-  };
+  transactionPayment: { id: string };
 }
 
 interface PaymentType {

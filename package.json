@@ -5,6 +5,7 @@
   "scripts": {
     "lint": "eslint --ext js,cjs,ts .",
     "lint:staged": "lint-staged",
+    "clean-install": "rm -rf ./**/node_modules & rm -rf ./**/.yarn & rm ./**/yarn-*.log",
     "format": "prettier --write \"**/*.{js,cjs,ts,json}\"",
     "prepare": "husky install",
     "test": "jest"

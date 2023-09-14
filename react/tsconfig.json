@@ -1,18 +1,17 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "jsx": "preserve",
-    "lib": ["es2017", "dom"],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "skipLibCheck": true,
+    "lib": ["es2019", "dom"],
     "sourceMap": true,
     "strict": true,
-    "target": "es2017",
-    "types": ["node"]
+    "types": ["node"],
+
+    "module": "esnext",
+    "target": "es2017"
   },
   "typeAcquisition": {
     "enable": false
   },
-  "include": ["./**/*"],
-  "exclude": ["node_modules"]
+  "include": ["./**/*"]
 }

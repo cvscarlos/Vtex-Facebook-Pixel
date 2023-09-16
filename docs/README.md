@@ -6,6 +6,7 @@ An app for [Vtex Ecommerce platform](https://vtex.com/us-en) (*NYSE: VTEX*) that
 ## Tracked Events
 - `PageView`: triggered when the user views a page;
 - `ProductView`: triggered when the user views a product page;
+- `CategoryView \ ViewContent`: triggered when the user views a category page;
 - `AddToCart`: triggered when a product is added to the cart;
 - `Purchase`: triggered when an order is placed.
 
@@ -13,8 +14,8 @@ More details about the events can be found in the [Facebook Pixel Documentation]
 
 
 ## Instalation
-1. Download this repository and install it:
-    - via [Vtex CLI](https://developers.vtex.com/docs/guides/vtex-io-documentation-vtex-io-cli-install):
+1. Install it:
+    - downloading this repository and using [Vtex CLI](https://developers.vtex.com/docs/guides/vtex-io-documentation-vtex-io-cli-install):
         ```sh
         vtex install maeztraio.cvs-facebook-pixel@1.x
         ```

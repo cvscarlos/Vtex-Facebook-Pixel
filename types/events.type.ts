@@ -1,6 +1,7 @@
 export const CATEGORY = 'vtex:categoryView';
 export const DEPARTAMENT = 'vtex:departmentView';
 export const PAGE_INFO = 'vtex:pageInfo';
+export const SEARCH = 'vtex:internalSiteSearchView';
 
 export interface EventData {
   event: string;
@@ -22,22 +23,22 @@ export interface OrderPlacedData extends Order, EventData {
 export interface PageInfoData extends EventData {
   eventName: typeof PAGE_INFO;
   event: 'pageInfo';
-  eventType: 'departmentView';
+  eventType: 'departmentView' | 'categoryView' | 'internalSiteSearchView';
 
   category?: { id: string; name: string };
   department: { id: string; name: string };
-
   // accountName: string;
   // pageTitle: string;
   // pageUrl: string;
   // orderBy: string;
   // appliedFilters: { name: string }[];
-  // search: {
-  //   category: { id: string; name: string };
-  //   results: number;
-  //   operator: string;
-  //   searchState: any;
-  // };
+  search: {
+    term: string;
+    // category: { id: string; name: string };
+    // results: number;
+    // operator: string;
+    // searchState: any;
+  };
 }
 
 export interface ProductViewData extends EventData {
@@ -58,9 +59,21 @@ export interface DepartmentViewData extends EventData {
   products: Product[];
 }
 
+export interface InternalSiteSearchViewData extends EventData {
+  event: 'internalSiteSearchView';
+  eventName: typeof SEARCH;
+  products: Product[];
+}
+
 export interface DepartmentInfo {
   eventName: 'cvs:departmentInfo';
   departmentData: DepartmentViewData | CategoryViewData;
+  pageInfo: PageInfoData;
+}
+
+export interface SearchInfo {
+  eventName: 'cvs:searchInfo';
+  searchView: InternalSiteSearchViewData;
   pageInfo: PageInfoData;
 }
 

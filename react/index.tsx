@@ -9,13 +9,17 @@ import {
   PAGE_INFO,
   DEPARTAMENT,
   CATEGORY,
+  SEARCH,
+  InternalSiteSearchViewData,
+  SearchInfo,
 } from '../types/events.type';
 
 type PixelData =
   | ProductViewData
   | AddToCartData
   | OrderPlacedData
-  | DepartmentInfo;
+  | DepartmentInfo
+  | SearchInfo;
 
 function singleFbq(eventName: string, eventData: Record<string, unknown>) {
   const pixelId = cvsAppSettings?.pixelId || '---';
@@ -88,6 +92,20 @@ function viewCategory(data: DepartmentInfo) {
   });
 }
 
+function search(data: SearchInfo) {
+  const { currency, products } = data.searchView;
+  const { search } = data.pageInfo;
+
+  const contentIds = products.flatMap((p) => p.items.map((i) => i.itemId));
+
+  singleFbq('Search', {
+    content_type: 'product_group',
+    content_ids: [...contentIds],
+    search_string: search.term || '---',
+    currency,
+  });
+}
+
 async function orderPlaced(data: OrderPlacedData) {
   const payload = {
     eventData: data,
@@ -103,13 +121,7 @@ async function orderPlaced(data: OrderPlacedData) {
 
 const eventsCache: Record<string, PixelData> = {};
 
-function getCombinedEvents(): PixelData | undefined {
-  const isDepartmentInfo =
-    eventsCache[PAGE_INFO] &&
-    (eventsCache[DEPARTAMENT] || eventsCache[CATEGORY]);
-
-  if (!isDepartmentInfo) return undefined;
-
+function createDepartmentInfoEvent() {
   const pageInfo = eventsCache['vtex:pageInfo'] as unknown as PageInfoData;
   const departmentView = eventsCache[
     DEPARTAMENT
@@ -130,6 +142,36 @@ function getCombinedEvents(): PixelData | undefined {
   return combinedEvent;
 }
 
+function createSearchInfoEvent() {
+  const pageInfo = eventsCache['vtex:pageInfo'] as unknown as PageInfoData;
+  const searchView = eventsCache[
+    SEARCH
+  ] as unknown as InternalSiteSearchViewData;
+
+  const combinedEvent: SearchInfo = {
+    eventName: 'cvs:searchInfo',
+    searchView,
+    pageInfo,
+  };
+
+  delete eventsCache[SEARCH];
+  delete eventsCache[PAGE_INFO];
+
+  return combinedEvent;
+}
+
+function getCombinedEvents(): PixelData | undefined {
+  const isDepartmentInfo =
+    eventsCache[PAGE_INFO] &&
+    (eventsCache[DEPARTAMENT] || eventsCache[CATEGORY]);
+  if (isDepartmentInfo) return createDepartmentInfoEvent();
+
+  const isSearchInfo = eventsCache[PAGE_INFO] && eventsCache[SEARCH];
+  if (isSearchInfo) return createSearchInfoEvent();
+
+  return undefined;
+}
+
 async function handleEvent(eventData: PixelData) {
   // eslint-disable-next-line no-console
   if (eventData.eventName) console.info(eventData.eventName, eventData);
@@ -145,6 +187,10 @@ async function handleEvent(eventData: PixelData) {
     }
     case 'cvs:departmentInfo': {
       viewCategory(eventData);
+      break;
+    }
+    case 'cvs:searchInfo': {
+      search(eventData);
       break;
     }
     case 'vtex:orderPlaced':
@@ -167,7 +213,7 @@ function isPixelData(event: any): event is { data: PixelData } {
 
 async function handleMessages(event: any) {
   // eslint-disable-next-line no-console
-  console.info({ event });
+  // console.info({ event });
   try {
     if (!isPixelData(event)) return;
     const eventData = event.data;

@@ -1,5 +1,5 @@
 <script>
-  (function (browserWindow, browserDocument, htmlTagName, scriptUrl) {
+  (function (browserWindow, browserDocument, scriptUrl) {
     if (browserWindow.fbq) return;
 
     var eventReceiver = function () {
@@ -25,17 +25,21 @@
     }
     if (scriptExists) return;
 
-    var htmlElement = browserDocument.createElement(htmlTagName);
+    var htmlElement = browserDocument.createElement('script');
     htmlElement.async = true;
     htmlElement.src = scriptUrl;
-    htmlElement.onload = function () {
-      console.info('📘 Facebook Pixel loaded');
-    };
+    // htmlElement.onload = function () {
+    //   console.info('📘 Facebook Pixel loaded');
+    // };
 
     var tagScript = browserDocument.getElementsByTagName(htmlTagName)[0];
     tagScript.parentNode.insertBefore(htmlElement, tagScript)
-  })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+  })(window, document, 'https://connect.facebook.net/en_US/fbevents.js');
 
   fbq('init', '{{settings.pixelId}}');
-  fbq('track', 'PageView');
+  fbq('trackSingle', '{{settings.pixelId}}', 'PageView');
+
+  window.cvsAppSettings = {
+    pixelId: '{{settings.pixelId}}'
+  };
 </script>

@@ -6,6 +6,7 @@ An app for [Vtex Ecommerce platform](https://vtex.com/us-en) (*NYSE: VTEX*) that
 ## Tracked Events
 - `PageView`: triggered when the user views a page;
 - `ProductView`: triggered when the user views a product page;
+- `CategoryView \ ViewContent`: triggered when the user views a category page;
 - `AddToCart`: triggered when a product is added to the cart;
 - `Purchase`: triggered when an order is placed.
 

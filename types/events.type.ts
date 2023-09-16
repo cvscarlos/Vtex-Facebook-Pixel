@@ -1,3 +1,7 @@
+export const CATEGORY = 'vtex:categoryView';
+export const DEPARTAMENT = 'vtex:departmentView';
+export const PAGE_INFO = 'vtex:pageInfo';
+
 export interface EventData {
   event: string;
   eventName: string;
@@ -15,6 +19,27 @@ export interface OrderPlacedData extends Order, EventData {
   eventName: 'vtex:orderPlacedTracked' | 'vtex:orderPlaced';
 }
 
+export interface PageInfoData extends EventData {
+  eventName: typeof PAGE_INFO;
+  event: 'pageInfo';
+  eventType: 'departmentView';
+
+  category?: { id: string; name: string };
+  department: { id: string; name: string };
+
+  // accountName: string;
+  // pageTitle: string;
+  // pageUrl: string;
+  // orderBy: string;
+  // appliedFilters: { name: string }[];
+  // search: {
+  //   category: { id: string; name: string };
+  //   results: number;
+  //   operator: string;
+  //   searchState: any;
+  // };
+}
+
 export interface ProductViewData extends EventData {
   event: 'productView';
   eventName: 'vtex:productView';
@@ -23,8 +48,20 @@ export interface ProductViewData extends EventData {
 
 export interface CategoryViewData extends EventData {
   event: 'categoryView';
-  eventName: 'vtex:categoryView';
+  eventName: typeof CATEGORY;
   products: Product[];
+}
+
+export interface DepartmentViewData extends EventData {
+  event: 'departmentView';
+  eventName: typeof DEPARTAMENT;
+  products: Product[];
+}
+
+export interface DepartmentInfo {
+  eventName: 'cvs:departmentInfo';
+  departmentData: DepartmentViewData | CategoryViewData;
+  pageInfo: PageInfoData;
 }
 
 interface Order {
@@ -116,4 +153,6 @@ interface AddToCartProduct {
   quantity: number;
   skuId: string;
   variant: string;
+  category: string;
+  productId: string;
 }

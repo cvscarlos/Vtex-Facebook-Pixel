@@ -6,6 +6,7 @@
     "noEmitOnError": false,
     "resolveJsonModule": true,
     "skipLibCheck": true,
+    "types": ["node", "jest"],
 
     "module": "commonjs",
     "moduleResolution": "node",

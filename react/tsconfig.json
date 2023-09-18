@@ -1,17 +1,19 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "@vtex/tsconfig",
   "compilerOptions": {
+    "esModuleInterop": true,
     "jsx": "preserve",
-    "lib": ["es2019", "dom"],
+    "lib": [ "es2019", "dom" ],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmitOnError": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "types": ["node"],
-
-    "module": "esnext",
-    "target": "es2017"
+    "target": "es2017",
+    "types": [ "node", "jest" ]
   },
-  "typeAcquisition": {
-    "enable": false
-  },
-  "include": ["./**/*"]
+  "include": [ "./**/*.ts" ],
+  "exclude": [ "node_modules" ]
 }

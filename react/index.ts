@@ -109,7 +109,7 @@ function search(data: SearchInfo) {
 async function orderPlaced(data: OrderPlacedData) {
   const payload = {
     eventData: data,
-    userAgent: navigator.userAgent,
+    userAgent: window.navigator.userAgent,
     pageUrl: window.location.href,
   };
   await fetch('/_cvs-rep/order-placed', {
@@ -213,7 +213,7 @@ function isPixelData(event: any): event is { data: PixelData } {
 
 async function handleMessages(event: any) {
   // eslint-disable-next-line no-console
-  // console.info({ event });
+  console.info({ event });
   try {
     if (!isPixelData(event)) return;
     const eventData = event.data;

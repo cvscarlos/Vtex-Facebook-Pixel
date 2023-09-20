@@ -1,17 +1,16 @@
 {
   "name": "vtex-facebook-pixel",
   "license": "MIT",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "scripts": {
     "lint": "eslint --ext js,cjs,ts .",
     "lint:staged": "lint-staged",
-    "clean-install": "rm -rf ./**/node_modules & rm -rf ./**/.yarn & rm ./**/yarn-*.log",
+    "clean-install": "rm -rf ./**/node_modules || rm -rf ./**/.yarn || rm ./**/yarn-*.log || rm ./**/yarn.lock",
     "format": "prettier --write \"**/*.{js,cjs,ts,json}\"",
     "prepare": "husky install",
     "test": "jest"
   },
   "devDependencies": {
-    "@types/node": "^16.18.41",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
     "eslint": "^8.47.0",
@@ -23,10 +22,6 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.5.0",
     "prettier": "^3.0.2",
-    "typescript": "^5.2.2",
-    "@types/jest": "^29.5.4",
-    "@vtex/tsconfig": "^0.6.0",
-    "jest": "^29.6.4",
-    "ts-jest": "^29.1.1"
+    "typescript": "^5"
   }
 }

@@ -32,7 +32,7 @@
     "unicorn/prefer-string-replace-all": "off",
     "unicorn/prevent-abbreviations": "off",
 
-    "no-console": ["error", { "allow": ["error"] }],
+    "no-console": ["error", { "allow": ["error", "warn"] }],
     "import/order": [
       "error",
       {

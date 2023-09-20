@@ -21,16 +21,20 @@ type PixelData =
   | DepartmentInfo
   | SearchInfo;
 
-function singleFbq(eventName: string, eventData: Record<string, unknown>) {
-  const pixelId = cvsAppSettings?.pixelId || '---';
-  fbq('trackSingle', pixelId, eventName, eventData);
+function singleFbq(
+  eventName: string,
+  eventData: Record<string, unknown>,
+  options?: { eventID?: string },
+) {
+  const pixelId = window.cvsAppSettings?.pixelId || '---';
+  fbq('trackSingle', pixelId, eventName, eventData, options);
 }
 
 function singleFbqCustom(
   eventName: string,
   eventData: Record<string, unknown>,
 ) {
-  const pixelId = cvsAppSettings?.pixelId || '---';
+  const pixelId = window.cvsAppSettings?.pixelId || '---';
   fbq('trackSingleCustom', pixelId, eventName, eventData);
 }
 
@@ -107,6 +111,23 @@ function search(data: SearchInfo) {
 }
 
 async function orderPlaced(data: OrderPlacedData) {
+  const {
+    transactionCurrency,
+    transactionId,
+    transactionTotal,
+    transactionProducts,
+  } = data;
+  const jsEventData = {
+    currency: transactionCurrency,
+    value: transactionTotal,
+    contents: transactionProducts.map((product) => ({
+      id: product.sku,
+      quantity: product.quantity,
+      item_price: product.sellingPrice,
+    })),
+  };
+  singleFbq('Purchase', jsEventData, { eventID: transactionId });
+
   const payload = {
     eventData: data,
     userAgent: navigator.userAgent,
@@ -174,7 +195,7 @@ function getCombinedEvents(): PixelData | undefined {
 
 async function handleEvent(eventData: PixelData) {
   // eslint-disable-next-line no-console
-  if (eventData.eventName) console.info(eventData.eventName, eventData);
+  // if (eventData.eventName) console.info(eventData.eventName, eventData);
 
   switch (eventData.eventName) {
     case 'vtex:productView': {
@@ -204,28 +225,48 @@ async function handleEvent(eventData: PixelData) {
   }
 }
 
-function isPixelData(event: any): event is { data: PixelData } {
+type EventPixel = { data: PixelData };
+function isPixelData(event: any): event is EventPixel {
   const eventName = event?.data?.eventName;
   return (
     eventName && (eventName.startsWith('vtex:') || eventName.startsWith('cvs:'))
   );
 }
 
-async function handleMessages(event: any) {
-  // eslint-disable-next-line no-console
-  // console.info({ event });
-  try {
-    if (!isPixelData(event)) return;
-    const eventData = event.data;
-    eventsCache[eventData.eventName] = eventData;
+async function handleMessage(event: EventPixel) {
+  const eventData = event.data;
+  eventsCache[eventData.eventName] = eventData;
 
-    const combinedEvent = getCombinedEvents();
-    await (combinedEvent ? handleEvent(combinedEvent) : handleEvent(eventData));
+  const combinedEvent = getCombinedEvents();
+  await (combinedEvent ? handleEvent(combinedEvent) : handleEvent(eventData));
+}
+
+let isAppReady = false;
+const messagesCache: EventPixel[] = [];
+function consumeMessageFromCache() {
+  if (messagesCache.length === 0) return;
+  if (!isAppReady) return;
+
+  const message = messagesCache.shift();
+  if (!message) return;
+  handleMessage(message);
+
+  consumeMessageFromCache();
+}
+function listingMessage(event: any) {
+  try {
+    if (event.data === 'cvsAppSettingsReady' || window.cvsAppSettings)
+      isAppReady = true;
+
+    if (!isPixelData(event)) return;
+    messagesCache.push(event);
+    consumeMessageFromCache();
   } catch (error) {
-    console.error('cvs-facebook-pixel', error);
+    console.warn('cvs-facebook-pixel', error);
+    console.info('cvs-facebook-pixel - ERROR', error); // eslint-disable-line no-console
   }
 }
 
 // FB Helper: https://developers.facebook.com/docs/marketing-api/conversions-api/payload-helper
 // FB event reference: https://developers.facebook.com/docs/meta-pixel/reference
-window.addEventListener('message', handleMessages);
+window.addEventListener('message', listingMessage);

@@ -1,3 +1,9 @@
 .husky/
 .vscode/
-node/__tests__/
+tests/
+tmp/
+
+**/*.test.ts
+jest.config.cjs
+LICENSE
+package.json

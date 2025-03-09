@@ -11,7 +11,7 @@
   },
   "builders": {
     "docs": "0.x",
-    "node": "6.x",
+    "node": "7.x",
     "pixel": "0.x",
     "react": "3.x",
     "store": "0.x"

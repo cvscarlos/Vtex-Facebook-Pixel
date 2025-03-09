@@ -23,16 +23,16 @@ For more details about these events, refer to the [Facebook Pixel Documentation]
     - **Option 1**: Download this repository and use the [Vtex CLI](https://developers.vtex.com/docs/guides/vtex-io-documentation-vtex-io-cli-install):
       ```sh
       vtex publish
-      vtex install {{vendor}}.cvs-facebook-pixel@1.x
+      vtex install easygopartnerbr.cvs-facebook-pixel@2.x
       ```
     - **Option 2**: Access the installation URL directly:
       ```plaintext
-      https://{{accountName}}.myvtex.com/admin/apps/{{vendor}}.cvs-facebook-pixel/install
+      https://{{accountName}}.myvtex.com/admin/apps/easygopartnerbr.cvs-facebook-pixel/install
       ```
 
 2. **Access the setup URL**:
     ```plaintext
-    https://{{accountName}}.myvtex.com/admin/apps/{{vendor}}.cvs-facebook-pixel/setup
+    https://{{accountName}}.myvtex.com/admin/apps/easygopartnerbr.cvs-facebook-pixel/setup
     ```
 
 3. **Fill out the form**:

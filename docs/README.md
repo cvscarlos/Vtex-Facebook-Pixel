@@ -1,48 +1,74 @@
 # Vtex Facebook Pixel
 
-An app for [Vtex Ecommerce platform](https://vtex.com/us-en) (*NYSE: VTEX*) that makes it easy to integrate your store with Facebook Pixel.
-
+An app for the [Vtex Ecommerce Platform](https://vtex.com/us-en) (*NYSE: VTEX*) that simplifies the integration of your store with Facebook Pixel.
 
 ## Tracked Events
-- `PageView`: triggered when the user views a page;
-- `ProductView`: triggered when the user views a product page;
-- `CategoryView \ ViewContent`: triggered when the user views a category page;
-- `Search`: triggered when the user makes a search;
-- `AddToCart`: triggered when a product is added to the cart;
-- `Purchase`: triggered when an order is placed.
 
-More details about the events can be found in the [Facebook Pixel Documentation](https://developers.facebook.com/docs/facebook-pixel/api-reference).
+The following events are tracked by this app:
 
+- **`PageView`**: Triggered when a user views a page.
+- **`ProductView`**: Triggered when a user views a product page.
+- **`CategoryView` / `ViewContent`**: Triggered when a user views a category page.
+- **`Search`**: Triggered when a user performs a search.
+- **`AddToCart`**: Triggered when a product is added to the cart.
+- **`Purchase`**: Triggered when an order is placed.
 
-## Instalation
-1. Install it:
-    - downloading this repository and using [Vtex CLI](https://developers.vtex.com/docs/guides/vtex-io-documentation-vtex-io-cli-install):
-        ```sh
-        vtex install maeztraio.cvs-facebook-pixel@1.x
-        ```
-    - Or access the URL:
-        ```plain
-        https://{{accountName}}.myvtex.com/admin/apps/maeztraio.cvs-facebook-pixel/install
-        ```
-3. Access the setup URL:
-    ```plain
-    https://{{accountName}}.myvtex.com/admin/apps/maeztraio.cvs-facebook-pixel/setup
+For more details about these events, refer to the [Facebook Pixel Documentation](https://developers.facebook.com/docs/facebook-pixel/api-reference).
+
+---
+
+## Installation
+
+1. **Install the app**:
+    - **Option 1**: Download this repository and use the [Vtex CLI](https://developers.vtex.com/docs/guides/vtex-io-documentation-vtex-io-cli-install):
+      ```sh
+      vtex publish
+      vtex install {{vendor}}.cvs-facebook-pixel@1.x
+      ```
+    - **Option 2**: Access the installation URL directly:
+      ```plaintext
+      https://{{accountName}}.myvtex.com/admin/apps/{{vendor}}.cvs-facebook-pixel/install
+      ```
+
+2. **Access the setup URL**:
+    ```plaintext
+    https://{{accountName}}.myvtex.com/admin/apps/{{vendor}}.cvs-facebook-pixel/setup
     ```
-4. Fill the form with your:
-    - Facebook Pixel ID;
-    - Facebook Campaign Access Token ([details on documentation](https://developers.facebook.com/docs/marketing-api/conversions-api/get-started/?locale=en_US#access-token), scroll to *"Business Manager > Step 3"*);
-    - Press the "Save" button.
 
+3. **Fill out the form**:
+    - Provide your **Facebook Pixel ID**.
+    - Provide your **Facebook Campaign Access Token** ([see documentation](https://developers.facebook.com/docs/marketing-api/conversions-api/get-started/?locale=en_US#access-token) for details, scroll to *"Business Manager > Step 3"*).
+    - Click the **"Save"** button.
+
+---
 
 ## User Data Privacy
-Remember you must update your store's privacy policy to include the fact that you are collecting and sharing user data with Facebook.
 
+**Important**: Ensure your store's privacy policy is updated to reflect that you are collecting and sharing user data with Facebook.
+
+---
 
 ## Development
-- The Vtex environment requires Node v12, but this app also works fine in Node v14;
-- Use Yarn Classic (v1) to install dependencies by running `npx yarn@1 install`;
-- To start the development server, run `vtex link`.
 
+### Requirements
+- The Vtex environment requires **Node v12**, but this app is also compatible with **Node v14**.
+- Use **Yarn Classic (v1)** to install dependencies:
+  ```sh
+  npx yarn@1 install
+  ```
 
-## Special Thanks
-I would like to thank [Maeztra](https://maeztra.com/) for providing me with a test environment to develop this app.
+### Getting Started
+- To start the development server, run:
+  ```sh
+  vtex link
+  ```
+
+### Notes
+- **`npm workspaces`** is not supported by Vtex.
+- Ensure you have a `yarn.lock` file in both the `react` and `node` folders.
+- Run the following commands to generate the `yarn.lock` files:
+  ```sh
+  cd react && npx yarn@1 install && cd ..
+  cd node && npx yarn@1 install && cd ..
+  ```
+- At the root folder, you can use `yarn` or `npx` with any Node version.

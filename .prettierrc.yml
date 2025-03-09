@@ -1,0 +1,23 @@
+printWidth: 80
+tabWidth: 4
+useTabs: true
+singleQuote: true
+endOfLine: lf
+arrowParens: always
+trailingComma: es5
+
+overrides:
+    - files:
+          - "**/*.yml"
+          - "**/*.yaml"
+          - "**/*.json"
+          - "**/*.jsonc"
+          - "**/*.css"
+      options:
+          singleQuote: false
+          useTabs: false
+          trailingComma: none
+    - files:
+          - "**/*.jsonc"
+      options:
+          useTabs: true

@@ -1,6 +1,6 @@
 {
   "name": "cvs-facebook-pixel",
-  "vendor": "maeztraio",
+  "vendor": "easygopartnerbr",
   "version": "1.2.0",
   "title": "Facebook Pixel (cvs)",
   "description": "Implementation of Facebook Pixel and Conversion",
@@ -31,6 +31,11 @@
       "name": "colossus-write-logs"
     }
   ],
+  "billingOptions": {
+    "type": "free",
+    "support": { "url": "https://github.com/cvscarlos/Vtex-Facebook-Pixel/issues" },
+    "availableCountries": [ "*" ]
+  },
   "settingsSchema": {
     "title": "---",
     "type": "object",

@@ -1,7 +1,7 @@
 {
   "name": "cvs-facebook-pixel",
   "vendor": "easygopartnerbr",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "title": "Facebook Pixel (cvs)",
   "description": "Implementation of Facebook Pixel and Conversion",
   "credentialType": "absolute",

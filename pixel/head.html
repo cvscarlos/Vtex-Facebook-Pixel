@@ -1,44 +1,43 @@
 <script>
-  (function (browserWindow, browserDocument, scriptUrl) {
-    if (browserWindow.fbq) return;
+	(function (browserWindow, browserDocument, scriptUrl) {
+		if (browserWindow.fbq) return;
 
-    var eventReceiver = function () {
-      eventReceiver.callMethod
-        ? eventReceiver.callMethod.apply(eventReceiver, arguments)
-        : eventReceiver.queue.push(arguments)
-    };
+		var eventReceiver = function () {
+			eventReceiver.callMethod
+				? eventReceiver.callMethod.apply(eventReceiver, arguments)
+				: eventReceiver.queue.push(arguments);
+		};
 
-    browserWindow.fbq = eventReceiver;
+		browserWindow.fbq = eventReceiver;
 
-    if (!browserWindow._fbq)
-      browserWindow._fbq = eventReceiver;
+		if (!browserWindow._fbq) browserWindow._fbq = eventReceiver;
 
-    eventReceiver.push = eventReceiver;
-    eventReceiver.loaded = true;
-    eventReceiver.version = '2.0';
-    eventReceiver.queue = [];
+		eventReceiver.push = eventReceiver;
+		eventReceiver.loaded = true;
+		eventReceiver.version = '2.0';
+		eventReceiver.queue = [];
 
-    var scriptExists = false
-    for (var i = 0; i < browserDocument.scripts.length; i++) {
-      if (browserDocument.scripts[i].src === scriptUrl)
-        scriptExists = true
-    }
-    if (scriptExists) return;
+		var scriptExists = false;
+		for (var i = 0; i < browserDocument.scripts.length; i++) {
+			if (browserDocument.scripts[i].src === scriptUrl)
+				scriptExists = true;
+		}
+		if (scriptExists) return;
 
-    var htmlElement = browserDocument.createElement('script');
-    htmlElement.async = true;
-    htmlElement.src = scriptUrl;
+		var htmlElement = browserDocument.createElement('script');
+		htmlElement.async = true;
+		htmlElement.src = scriptUrl;
 
-    var tagScript = browserDocument.getElementsByTagName('script')[0];
-    tagScript.parentNode.insertBefore(htmlElement, tagScript)
-  })(window, document, 'https://connect.facebook.net/en_US/fbevents.js');
+		var tagScript = browserDocument.getElementsByTagName('script')[0];
+		tagScript.parentNode.insertBefore(htmlElement, tagScript);
+	})(window, document, 'https://connect.facebook.net/en_US/fbevents.js');
 
-  fbq('init', '{{settings.pixelId}}');
-  fbq('trackSingle', '{{settings.pixelId}}', 'PageView');
+	fbq('init', '{{settings.pixelId}}');
+	fbq('trackSingle', '{{settings.pixelId}}', 'PageView');
 
-  window.cvsAppSettings = {
-    pixelId: '{{settings.pixelId}}'
-  };
+	window.cvsAppSettings = {
+		pixelId: '{{settings.pixelId}}',
+	};
 
-  window.postMessage('cvsAppSettingsReady', '*')
+	window.postMessage('cvsAppSettingsReady', '*');
 </script>

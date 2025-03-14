@@ -3,10 +3,11 @@
   "license": "MIT",
   "version": "1.2.0",
   "scripts": {
-    "lint": "eslint --ext js,cjs,ts .",
-    "lint:staged": "lint-staged",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "lint:eslint": "eslint --ext js,cjs,ts .",
+    "lint:prettier": "prettier --check .",
     "clean-install": "rm -rf ./**/node_modules || rm -rf ./**/.yarn || rm ./**/yarn-*.log || rm ./**/yarn.lock",
-    "format": "prettier --write \"**/*.{js,cjs,ts,json}\"",
+    "format": "prettier --write .",
     "prepare": "husky install",
     "test": "jest"
   },
@@ -20,7 +21,6 @@
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-unicorn": "^46.0.1",
     "husky": "^7.0.4",
-    "lint-staged": "^12.5.0",
     "prettier": "^3.4.2",
     "typescript": "^5.7.3"
   }

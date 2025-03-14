@@ -1,15 +1,15 @@
 {
-  "extends": "@vtex/tsconfig",
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "lib": ["es2019"],
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "noEmitOnError": false,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "target": "es2019",
-    "types": ["node", "jest"]
-  },
-  "include": ["./**/*.ts"]
+    "extends": "@vtex/tsconfig",
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "lib": ["es2019"],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noEmitOnError": false,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "target": "es2019",
+        "types": ["node", "jest"]
+    },
+    "include": ["./**/*.ts"]
 }

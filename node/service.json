@@ -1,14 +1,14 @@
 {
-  "memory": 1024,
-  "ttl": 60,
-  "timeout": 60,
-  "minReplicas": 2,
-  "maxReplicas": 10,
-  "workers": 1,
-  "routes": {
-    "cvsOrderPlaced": {
-      "path": "/_cvs-rep/order-placed",
-      "public": true
+    "memory": 1024,
+    "ttl": 60,
+    "timeout": 60,
+    "minReplicas": 2,
+    "maxReplicas": 10,
+    "workers": 1,
+    "routes": {
+        "cvsOrderPlaced": {
+            "path": "/_cvs-rep/order-placed",
+            "public": true
+        }
     }
-  }
 }

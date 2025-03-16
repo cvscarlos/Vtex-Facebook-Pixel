@@ -33,7 +33,6 @@
 	})(window, document, 'https://connect.facebook.net/en_US/fbevents.js');
 
 	fbq('init', '{{settings.pixelId}}');
-	fbq('trackSingle', '{{settings.pixelId}}', 'PageView');
 
 	window.cvsAppSettings = {
 		pixelId: '{{settings.pixelId}}',

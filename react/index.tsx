@@ -12,9 +12,11 @@ import {
 	SEARCH,
 	InternalSiteSearchViewData,
 	SearchInfo,
+	PageViewData,
 } from '../types/events.type';
 
 type PixelData =
+	| PageViewData
 	| ProductViewData
 	| AddToCartData
 	| OrderPlacedData
@@ -36,6 +38,10 @@ function singleFbqCustom(
 ) {
 	const pixelId = window.cvsAppSettings?.pixelId || '---';
 	fbq('trackSingleCustom', pixelId, eventName, eventData);
+}
+
+function pageView() {
+	singleFbq('PageView', {});
 }
 
 function productView(data: ProductViewData) {
@@ -196,6 +202,10 @@ function getCombinedEvents(): PixelData | undefined {
 
 async function handleEvent(eventData: PixelData) {
 	switch (eventData.eventName) {
+		case 'vtex:pageView': {
+			pageView();
+			break;
+		}
 		case 'vtex:productView': {
 			productView(eventData);
 			break;

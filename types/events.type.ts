@@ -41,6 +41,14 @@ export interface PageInfoData extends EventData {
 	};
 }
 
+export interface PageViewData extends EventData {
+	currency: string;
+	eventName: 'vtex:pageView';
+	event: 'pageView';
+	pageTitle: string;
+	pageUrl: string;
+}
+
 export interface ProductViewData extends EventData {
 	event: 'productView';
 	eventName: 'vtex:productView';
